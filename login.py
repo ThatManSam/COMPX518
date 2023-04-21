@@ -11,6 +11,9 @@ db: sqlite3.Connection | None = None
 
 pepper = b'LV3rYF/C00W2txXdKdlgEw=='
 
+WEAK_PASSWORD_FILE = 'weakpasswords.txt'
+BREACHED_PASSWORD_FILE = 'breachedpasswords.txt'
+
 DB_NAME = "accounts.db"
 
 DB_ACCESS_ERROR = """
@@ -130,16 +133,34 @@ REG_USER_UNIQUE = """
 
 REG_PASS_INFO = """
 Password
-The Password can only contain:
-NEED TO MAKE REQUIREMENTS"""
+There are several password requirements:
+ - Between 8 and 64 characters in length
+ - Doesn't contain more than 3 repeated characters (like 'bbbb' or '****')
+ - Doesn't contain more than 3 sequential characters (like '1234', 'abcd' or '4321')
+ - Doesn't include your username"""
 
 REG_PASS_ASK = """
 Please enter a Password: """
 
-REG_PASS_VALID_REGEX = r'^[.]+$'
+REG_PASS_REPEAT_REGEX = r'([[:ascii:]])\1{3,}'
 
-REG_PASS_INVALID = """
-!! That password does not match the requirements"""
+REG_PASS_ASCII = """
+!! That password must only contain ASCII characters"""
+
+REG_PASS_CONTAINERS_USERNAME = """
+!! That password contains your username"""
+
+REG_PASS_SHORT = """
+!! That password is too short (must be 8 characters)"""
+
+REG_PASS_REPEAT = """
+!! That password contains too many repeated character (like 'aaaa')"""
+
+REG_PASS_SEQUENTIAL = """
+!! That password contains too many sequential character (like '1234' or '4321')"""
+
+REG_PASS_LONG = """
+!! That password is too long (max is 64 characters)"""
 
 REG_PASS_WEAK = """
 !! That password is too weak"""
@@ -172,7 +193,7 @@ def register():
             exit(1)
             
         curr = db.execute("SELECT username FROM accounts WHERE username == ?", (username,))
-        if curr.fetchone is None:
+        if curr.fetchone() is not None:
             print(REG_USER_UNIQUE)
             continue
         
@@ -187,18 +208,43 @@ def register():
         # Enter password
         password = getpass(REG_PASS_ASK)
         
-        # TODO: set password requirements
-        # Check password is valid
-        if re.match(REG_PASS_VALID_REGEX, password):
-            print(REG_PASS_INVALID)
+        # Check password length
+        if len(password) < 8:
+            print(REG_PASS_SHORT)
             continue
         
-        # TODO: Implement this checking
+        if len(password) > 64:
+            print(REG_PASS_LONG)
+            continue
+        
+        # Check for only ASCII characters
+        if not str.isascii(password):
+            print(REG_PASS_ASCII)
+            continue
+        
+        # Check that the password doesn't contain the username
+        if username in password:
+            print(REG_PASS_CONTAINERS_USERNAME)
+            continue
+        
+        # Check for repeat characters
+        if re.match(REG_PASS_REPEAT_REGEX, password):
+            print(REG_PASS_REPEAT)
+            continue
+        
+        # Check for sequential characters
+        if has_sequential_chars(password):
+            print(REG_PASS_SEQUENTIAL)
+            continue
+        
         # Check password is not weak or breached
-        # if profanity.contains_profanity(password):
-        #     print(REG_PASS_WEAK)
-        #     print(REG_PASS_BREACHED)
-        #     continue
+        if check_is_not_in_file(password, WEAK_PASSWORD_FILE):
+            print(REG_PASS_WEAK)
+            continue
+            
+        if check_is_not_in_file(password, BREACHED_PASSWORD_FILE):
+            print(REG_PASS_BREACHED)
+            continue
         
         # Valid, strong and safe password
         break    
@@ -222,6 +268,33 @@ def register():
     
     print(f"Registered user: '{username}' with password: '{password}'")
 
+def check_is_not_in_file(password: str, file: str) -> bool:
+    with open(file) as f:
+        while True:
+            line = f.readline()
+            # End of file
+            if not line:
+                return False
+            
+            # Password is in file
+            if password == line:
+                return True
+            
+def has_sequential_chars(password: str) -> bool:
+    # """
+    # Returns True if the given string contains sequential characters (e.g. "1234" or "abcd"),
+    # False otherwise.
+    # """
+    for i in range(len(password) - 3):
+        if ord(password[i]) == ord(password[i+1]) - 1 and \
+            ord(password[i+1]) == ord(password[i+2]) - 1 and \
+            ord(password[i+2]) == ord(password[i+3]) - 1:
+            return True
+        if ord(password[i]) == ord(password[i+1]) + 1 and \
+            ord(password[i+1]) == ord(password[i+2]) + 1 and \
+            ord(password[i+2]) == ord(password[i+3]) + 1:
+            return True
+    return False
 
 if __name__ == "__main__":
     print(MSG_WELCOME)
