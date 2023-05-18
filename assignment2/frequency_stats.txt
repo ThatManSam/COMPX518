@@ -1,0 +1,55 @@
+28: 117 e
+58: 90  t
+20: 85  a
+48: 79  o
+36: 74  i
+56: 66  n
+54: 65  s
+46: 55  r
+42: 53  h
+34: 49  d
+24: 48  l
+44: 27  u
+30: 26  c
+26: 24  m
+22: 20  f
+50: 19  y
+32: 18  w
+68: 18  g
+60: 15  p
+62: 13  b
+40: 12  v
+64: 10  k
+70: 5   x
+38: 3   q
+52: 1   j
+
+With space on top
+28: 117 _
+58: 90  e
+20: 85  t
+48: 79  a
+36: 74  o
+56: 66  i
+54: 65  n
+46: 55  s
+42: 53  r
+34: 49  h
+24: 48  d
+44: 27  l
+30: 26  u
+26: 24  c
+22: 20  m
+50: 19  f
+32: 18  y
+68: 18  w
+60: 15  g
+62: 13  p
+40: 12  b
+64: 10  v
+70: 5   k
+38: 3   x
+52: 1   q
+
+
+afhalvdoheinasewiorocnyaletiuekdesewsabitginnontsorwtdatrotdirwroyastilhenosebereheltsouawretilsamiatiornpldanhiwdtlarenlayecsouittdetdeosgocweresahsehatibitgysemiltntdatanpccilierthglouyaltuannlarmecosunyaletiuetocosuafhalvdohetdefoprmasgoctdesewiorcsoukdildroenlayeinyonnifheinlahhemtdeebertdosixorahtdopwdtdeebertdosixordanarerosuopnecceltortdecatearmlislpuntarlenocarofqeltlsonnirwititdanroholahhgmeteltafheceatpseniruargkagnafhalvdohealtnhivearimeahfhalvfomganitsecheltnrohiwdtuoseobesjpartpuciehmtdeosgirlpsbemnyaletiueysemiltntdatebertdosixorneuitdakvirwsamiatiorkitdtdenauenyeltspuanafhalvfomgocateuyesatpseirbesnehgysoyostiorahtoitnuanntdinteuyesatpseinortdeosmesocfihhiortdnocavehbircosfhalvdohenocntehhasuannuavirwitennertiahhgiuyonnifhetoofnesbeofqeltnkdonewsabitatiorahciehmnasetoontsorwcoshiwdttoenlayekesecisntlornimesemirtdeeiwdteertdlertpsgfgqodruildehharmyiesseniuorhayhaletdecisntuomesrtdeosgocweresahsehatibitgtdatkophmldasaltesixeafhalvdohekanmenlsifemfgvashnldkasxnldihm
