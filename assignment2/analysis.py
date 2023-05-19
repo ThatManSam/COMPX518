@@ -30,36 +30,27 @@ def sort_by_frequency(counts):
         counts.items(), key=lambda item: item[1], reverse=True)
     return sorted_counts
 
+def generate_letter_mapping(letter: str, factor: int, offset: int):
+    ascii_num = ord(letter.lower())
+    normalised = ascii_num - ord('a')
+    return normalised * factor + offset
+    
+
+def generate_matrix(e_number = 28, factor = 2):
+    # From stats analysis, the letter e was 28 and the letter t was 58.
+    # There is a difference of 30 between 28 and 58, and the difference between e and t in the alphabet is 15.
+    # Thus, 30/15 = 2, so each letter corresponds to each even number relative to e being 28 (i.e. 30 is f)
+    offset = e_number - (4 * factor)
+    matrix = {}
+    for i in range(26):
+        letter = chr(i + ord("a"))
+        matrix[generate_letter_mapping(letter, 2, offset)] = letter
+    return matrix
 
 def decrypt(ciphertext: str):
-    substitution_matrix = {
-        28: "e",
-        58: "t",
-        20: "a",
-        48: "o",
-        36: "i",
-        56: "n",
-        54: "s",
-        46: "r",
-        42: "h",
-        34: "d",
-        24: "l",
-        44: "u",
-        30: "c",
-        26: "m",
-        22: "f",
-        50: "y",
-        32: "w",
-        68: "g",
-        60: "p",
-        62: "b",
-        40: "v",
-        64: "k",
-        70: "x",
-        38: "q",
-        52: "j",
-    }
+    substitution_matrix = generate_matrix(28)
 
+    print(substitution_matrix)
     cipher_split = ciphertext.split()
     output = ""
     for number in cipher_split:
@@ -69,7 +60,7 @@ def decrypt(ciphertext: str):
 
 
 if __name__ == "__main__":
-    filename = "/home/js479/Documents/COMPX518/assignment2/ciphertext3.txt"
+    filename = "./ciphertext3.txt"
     # counts = count_numbers(filename)
     # sorted_counts = sort_by_frequency(counts)
     # for number, count in sorted_counts:

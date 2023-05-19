@@ -53,3 +53,32 @@ With space on top
 
 
 afhalvdoheinasewiorocnyaletiuekdesewsabitginnontsorwtdatrotdirwroyastilhenosebereheltsouawretilsamiatiornpldanhiwdtlarenlayecsouittdetdeosgocweresahsehatibitgysemiltntdatanpccilierthglouyaltuannlarmecosunyaletiuetocosuafhalvdohetdefoprmasgoctdesewiorcsoukdildroenlayeinyonnifheinlahhemtdeebertdosixorahtdopwdtdeebertdosixordanarerosuopnecceltortdecatearmlislpuntarlenocarofqeltlsonnirwititdanroholahhgmeteltafheceatpseniruargkagnafhalvdohealtnhivearimeahfhalvfomganitsecheltnrohiwdtuoseobesjpartpuciehmtdeosgirlpsbemnyaletiueysemiltntdatebertdosixorneuitdakvirwsamiatiorkitdtdenauenyeltspuanafhalvfomgocateuyesatpseirbesnehgysoyostiorahtoitnuanntdinteuyesatpseinortdeosmesocfihhiortdnocavehbircosfhalvdohenocntehhasuannuavirwitennertiahhgiuyonnifhetoofnesbeofqeltnkdonewsabitatiorahciehmnasetoontsorwcoshiwdttoenlayekesecisntlornimesemirtdeeiwdteertdlertpsgfgqodruildehharmyiesseniuorhayhaletdecisntuomesrtdeosgocweresahsehatibitgtdatkophmldasaltesixeafhalvdohekanmenlsifemfgvashnldkasxnldihm
+Final Mapping:
+    20: 'a',
+    22: 'b',
+    24: 'c',
+    26: 'd',
+    28: 'e',
+    30: 'f',
+    32: 'g',
+    34: 'h',
+    36: 'i',
+    38: 'j',
+    40: 'k',
+    42: 'l',
+    44: 'm',
+    46: 'n',
+    48: 'o',
+    50: 'p',
+    52: 'q',
+    54: 'r',
+    56: 's',
+    58: 't',
+    60: 'u',
+    62: 'v',
+    64: 'w',
+    66: 'x',
+    68: 'y',
+    70: 'z'
+
+ablackholeisaregionofspacetimewheregravityissostrongthatnothingnoparticlesorevenelectromagneticradiationsuchaslightcanescapefromitthetheoryofgeneralrelativitypredictsthatasufficientlycompactmasscandeformspacetimetoformablackholetheboundaryoftheregionfromwhichnoescapeispossibleiscalledtheeventhorizonalthoughtheeventhorizonhasanenormouseffectonthefateandcircumstancesofanobjectcrossingitithasnolocallydetectablefeaturesinmanywaysablackholeactslikeanidealblackbodyasitreflectsnolightmoreoverquantumfieldtheoryincurvedspacetimepredictsthateventhorizonsemithawkingradiationwiththesamespectrumasablackbodyofatemperatureinverselyproportionaltoitsmassthistemperatureisontheorderofbillionthsofakelvinforblackholesofstellarmassmakingitessentiallyimpossibletoobserveobjectswhosegravitationalfieldsaretoostrongforlighttoescapewerefirstconsideredintheeighteenthcenturybyjohnmichellandpierresimonlaplacethefirstmoderntheoryofgeneralrelativitythatwouldcharacterizeablackholewasdescribedbykarlschwarzschild
