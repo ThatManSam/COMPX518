@@ -2,7 +2,7 @@ import os
 import sys
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 
 KEY = bytes.fromhex("770A8A65DA156D24EE2A093277530142")
 BLOCK_SIZE = 16
@@ -47,7 +47,14 @@ def encrypt_image(input_filename: str, output_filename: str, type: int) -> None:
     """
 
     # Read in the image, taking the format of the filename suffix
-    plain_image = Image.open(input_filename)
+    try:
+        plain_image = Image.open(input_filename)
+    except FileNotFoundError:
+        print(f'The file "{input_filename}" could not be found')
+        exit(2)
+    except UnidentifiedImageError:
+        print(f"Couldn't identify image type for {input_filename} or file has incorrect suffix")
+        exit(2)
 
     # Encrypt the image
     plain_text = plain_image.tobytes()
