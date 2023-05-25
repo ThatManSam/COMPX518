@@ -30,6 +30,9 @@ def sort_by_frequency(counts):
         counts.items(), key=lambda item: item[1], reverse=True)
     return sorted_counts
 
+def calculate_factor(e_value: int, t_value: int):
+    return (t_value - e_value) / (ord('t') - ord('e'))
+
 def generate_letter_mapping(letter: str, factor: int, offset: int):
     ascii_num = ord(letter.lower())
     normalised = ascii_num - ord('a')
@@ -47,28 +50,39 @@ def generate_matrix(e_number = 28, factor = 2):
         matrix[generate_letter_mapping(letter, 2, offset)] = letter
     return matrix
 
-def decrypt(ciphertext: str):
-    substitution_matrix = generate_matrix(28)
+def decrypt(ciphertext: str, substitution_matrix: dict):
 
     print(substitution_matrix)
     cipher_split = ciphertext.split()
     output = ""
     for number in cipher_split:
-        output += substitution_matrix.get(int(number))
+        try:
+            output += substitution_matrix.get(int(number))
+        except TypeError:
+            print(f"Error getting value in matrix from {number}")
 
     return output
 
 
 if __name__ == "__main__":
     filename = "./ciphertext3.txt"
-    # counts = count_numbers(filename)
-    # sorted_counts = sort_by_frequency(counts)
-    # for number, count in sorted_counts:
-    #     print(f"{number}: {count}")
+
+    with open(filename, "r") as f:
+        numbers = f.readline().split()
+
+    sorted_counts = sorted(collections.Counter(numbers).items(), key=lambda item: item[1], reverse=True)
+    for number, count in sorted_counts:
+        print(f"{number}: {count}")
+
+    e_value = int(sorted_counts[0][0])
+    t_value = int(sorted_counts[1][0])
+    factor = calculate_factor(e_value, t_value)
+    print(f"E value: {e_value} | T value: {t_value} | Factor: {factor} ")
+    substitution_matrix = generate_matrix(e_value, factor)
 
     with open(filename) as file:
         while True:
             line = file.readline()
             if line == "": break
-            output = decrypt(line)
+            output = decrypt(line, substitution_matrix)
             print(output)
