@@ -51,10 +51,10 @@ def encrypt_image(input_filename: str, output_filename: str, type: int) -> None:
         plain_image = Image.open(input_filename)
     except FileNotFoundError:
         print(f'The file "{input_filename}" could not be found')
-        exit(2)
+        return
     except UnidentifiedImageError:
         print(f"Couldn't identify image type for {input_filename} or file has incorrect suffix")
-        exit(2)
+        return
 
     # Encrypt the image
     plain_text = plain_image.tobytes()
