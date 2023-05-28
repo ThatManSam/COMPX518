@@ -1,14 +1,15 @@
 import collections
+import sys
 
 
 def count_numbers(filename):
-    """Counts the number of occurrences of each number in a file.
+    """Counts the number of occurrences of each number in the given file.
 
     Args:
       filename: The path to the file to count.
 
     Returns:
-      A dictionary mapping each number to the number of times it appears in the file.
+      A dict with the count of each number in the file
     """
     with open(filename, "r") as f:
         numbers = f.readline().split()
@@ -17,29 +18,45 @@ def count_numbers(filename):
     return counts
 
 
-def sort_by_frequency(counts):
-    """Sorts a dictionary of number counts by frequency.
+def calculate_factor(e_value: int, t_value: int) -> int:
+    """Calculates the factor for creating a letter mapping based on the value for e and t
 
     Args:
-      counts: A dictionary mapping each number to the number of times it appears.
+        e_value (int): the value for the letter e based on statistical analysis
+        t_value (int): the value for the letter t based on statistical analysis
 
     Returns:
-      A list of tuples, where each tuple contains a number and the number of times it appears.
+        int: An integer for the multiplication factor of the letter mapping
     """
-    sorted_counts = sorted(
-        counts.items(), key=lambda item: item[1], reverse=True)
-    return sorted_counts
-
-def calculate_factor(e_value: int, t_value: int):
     return (t_value - e_value) / (ord('t') - ord('e'))
 
-def generate_letter_mapping(letter: str, factor: int, offset: int):
-    ascii_num = ord(letter.lower())
+
+def generate_letter_mapping(letter: str, factor: int, offset: int) -> int:
+    """Generates a number mapping to the given letter
+
+    Args:
+        letter (str): the letter to map
+        factor (int): the factor for the mapping pattern
+        offset (int): the offset for the mapping pattern
+
+    Returns:
+        int: the mapped value
+    """
+    ascii_num = ord(letter.lower()) # Normalise all letters to lowercase values
     normalised = ascii_num - ord('a')
     return normalised * factor + offset
     
 
-def generate_matrix(e_number = 28, factor = 2):
+def generate_matrix(e_number = 28, factor = 2) -> dict:
+    """Generates a dict of letters and their mapped values
+
+    Args:
+        e_number (int, optional): The value for e based on statistical analysis. Defaults to 28.
+        factor (int, optional): The factor for the mapping pattern. Defaults to 2.
+
+    Returns:
+        dict: The letter mappings
+    """
     # From stats analysis, the letter e was 28 and the letter t was 58.
     # There is a difference of 30 between 28 and 58, and the difference between e and t in the alphabet is 15.
     # Thus, 30/15 = 2, so each letter corresponds to each even number relative to e being 28 (i.e. 30 is f)
@@ -50,9 +67,18 @@ def generate_matrix(e_number = 28, factor = 2):
         matrix[generate_letter_mapping(letter, 2, offset)] = letter
     return matrix
 
-def decrypt(ciphertext: str, substitution_matrix: dict):
+def decrypt(ciphertext: str, substitution_matrix: dict) -> str:
+    """Decrypts the ciphertext using the substitution matrix
 
-    print(substitution_matrix)
+    Args:
+        ciphertext (str): The text to decrypt
+        substitution_matrix (dict): The key mapping used for decryption
+
+    Returns:
+        str: The decrypted plain text
+    """
+
+    print(f"Substitution Matrix:\n{substitution_matrix}")
     cipher_split = ciphertext.split()
     output = ""
     for number in cipher_split:
@@ -65,21 +91,35 @@ def decrypt(ciphertext: str, substitution_matrix: dict):
 
 
 if __name__ == "__main__":
-    filename = "./ciphertext3.txt"
+    
+    # Get the input file from command arguments
+    if len(sys.argv) < 2:
+        print(f'Usage: python3 {sys.argv[0]} <input_file>')
+        exit(1)
+        
+    filename = sys.argv[1]
+    
+    try:
+        # load all the numbers into a list
+        with open(filename, "r") as f:
+            numbers = f.readline().split()
+    except FileNotFoundError:
+        print(f"Couldn't find input file {filename}")
+        exit(1)
 
-    with open(filename, "r") as f:
-        numbers = f.readline().split()
-
+    # Count each letter into a list of tuples and sort by the most frequent numbers
     sorted_counts = sorted(collections.Counter(numbers).items(), key=lambda item: item[1], reverse=True)
+    print("Frequency of Numbers")
     for number, count in sorted_counts:
         print(f"{number}: {count}")
 
-    e_value = int(sorted_counts[0][0])
-    t_value = int(sorted_counts[1][0])
+    e_value = int(sorted_counts[0][0])  # Most frequent value
+    t_value = int(sorted_counts[1][0])  # Second most frequent value
     factor = calculate_factor(e_value, t_value)
     print(f"E value: {e_value} | T value: {t_value} | Factor: {factor} ")
     substitution_matrix = generate_matrix(e_value, factor)
 
+    # Decrypt the cipher text
     with open(filename) as file:
         while True:
             line = file.readline()
