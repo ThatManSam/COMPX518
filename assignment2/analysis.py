@@ -1,21 +1,5 @@
-import collections
+from collections import Counter
 import sys
-
-
-def count_numbers(filename):
-    """Counts the number of occurrences of each number in the given file.
-
-    Args:
-      filename: The path to the file to count.
-
-    Returns:
-      A dict with the count of each number in the file
-    """
-    with open(filename, "r") as f:
-        numbers = f.readline().split()
-
-    counts = collections.Counter(numbers)
-    return counts
 
 
 def calculate_factor(e_value: int, t_value: int) -> int:
@@ -57,7 +41,7 @@ def generate_matrix(e_number = 28, factor = 2) -> dict:
     Returns:
         dict: The letter mappings
     """
-    # From stats analysis, the letter e was 28 and the letter t was 58.
+    # From statistical analysis for ciphertext3.txt, the letter e was 28 and the letter t was 58.
     # There is a difference of 30 between 28 and 58, and the difference between e and t in the alphabet is 15.
     # Thus, 30/15 = 2, so each letter corresponds to each even number relative to e being 28 (i.e. 30 is f)
     offset = e_number - (4 * factor)
@@ -66,6 +50,7 @@ def generate_matrix(e_number = 28, factor = 2) -> dict:
         letter = chr(i + ord("a"))
         matrix[generate_letter_mapping(letter, 2, offset)] = letter
     return matrix
+
 
 def decrypt(ciphertext: str, substitution_matrix: dict) -> str:
     """Decrypts the ciphertext using the substitution matrix
@@ -108,8 +93,8 @@ if __name__ == "__main__":
         exit(1)
 
     # Count each letter into a list of tuples and sort by the most frequent numbers
-    sorted_counts = sorted(collections.Counter(numbers).items(), key=lambda item: item[1], reverse=True)
-    print("Frequency of Numbers")
+    sorted_counts = sorted(Counter(numbers).items(), key=lambda item: item[1], reverse=True)
+    print("Frequency of Numbers:")
     for number, count in sorted_counts:
         print(f"{number}: {count}")
 
