@@ -53,8 +53,8 @@ fi
 
 number_suffix=$(($number+129))
 
-prefix_file=split_pre_$file
-suffix_file=split_suf_$file
+prefix_file=/tmp/split_pre_$file
+suffix_file=/tmp/split_suf_$file
 
 echo "Splitting out prefix and suffix"
 head -c $number $file > $prefix_file
@@ -79,10 +79,15 @@ output_file2="$file"".match.2"
 echo "Rebuilding files"
 cat $prefix_file $prefix_match_file1_end $suffix_file > $output_file1
 cat $prefix_file $prefix_match_file2_end $suffix_file > $output_file2
+echo "Output $output_file1"
+echo "Output $output_file2"
+
 
 echo "Cleaning up files"
 rm -f $prefix_file $suffix_file \
     $prefix_match_file1 $prefix_match_file2 \
     $prefix_match_file1_end $prefix_match_file2_end
+
+chmod +x $output_file1 $output_file2
 
 exit 0
